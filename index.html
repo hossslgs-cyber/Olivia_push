@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You - Herbert Dev</title>
+    <meta property="og:title" content="I Love You 💕">
+    <meta property="og:description" content="A special love message from Herbert Dev">
+    <meta property="og:type" content="website">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;400;600&family=Dancing+Script:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(180deg, #1a001a 0%, #0d000d 50%, #050005 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Fredoka', sans-serif;
+            position: relative;
+        }
+
+        /* Animated heart background */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 20, 147, 0.12);
+            animation: floatHeart 10s ease-in-out infinite;
+            font-size: 16px;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.12; }
+            50% { transform: translateY(-20px) scale(1.1); opacity: 0.2; }
+        }
+
+        /* Glowing orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: orbFloat 6s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,20,147,0.4) 0%, transparent 70%);
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,105,180,0.3) 0%, transparent 70%);
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .orb-3 {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,0,255,0.3) 0%, transparent 70%);
+            bottom: 20%;
+            left: 10%;
+            animation-delay: 4s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(20px, -20px) scale(1.1); }
+            66% { transform: translate(-10px, 10px) scale(0.9); }
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 20, 147, 0.3);
+            border: 2px solid rgba(255, 20, 147, 0.5);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            border-color: #ff1493;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 50px 20px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            text-shadow: 0 0 20px rgba(255,20,147,0.8), 0 0 40px rgba(255,20,147,0.4);
+            letter-spacing: 3px;
+        }
+
+        /* Main card */
+        .main-card {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 25px;
+            margin: 10px 20px;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255,20,147,0.2);
+            box-shadow: 0 0 30px rgba(255,20,147,0.1), inset 0 0 30px rgba(255,20,147,0.05);
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Floating stickers container */
+        .stickers-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+        }
+
+        /* Glowing sun/moon */
+        .glow-sun {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ffeb3b 0%, #ff9800 40%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 60px #ffeb3b, 0 0 100px rgba(255,152,0,0.5);
+            animation: pulseGlow 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        /* Text bubbles */
+        .text-bubble {
+            position: absolute;
+            color: #fff;
+            font-family: 'Pacifico', cursive;
+            text-shadow: 0 0 10px rgba(255,20,147,0.8);
+            animation: floatText 4s ease-in-out infinite;
+            z-index: 5;
+            text-align: center;
+        }
+
+        .bubble-1 {
+            top: 8%;
+            left: 10%;
+            font-size: 1.2rem;
+            animation-delay: 0s;
+        }
+
+        .bubble-2 {
+            top: 12%;
+            right: 8%;
+            font-size: 1.4rem;
+            color: #ff69b4;
+            animation-delay: 1s;
+        }
+
+        .bubble-3 {
+            bottom: 18%;
+            right: 8%;
+            font-size: 1.2rem;
+            animation-delay: 2s;
+        }
+
+        .bubble-4 {
+            bottom: 12%;
+            left: 15%;
+            font-size: 1.1rem;
+            animation-delay: 0.5s;
+        }
+
+        .bubble-5 {
+            top: 40%;
+            left: 5%;
+            font-size: 1rem;
+            animation-delay: 1.5s;
+        }
+
+        .bubble-6 {
+            top: 35%;
+            right: 5%;
+            font-size: 1rem;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        /* Character stickers - clickable */
+        .sticker {
+            position: absolute;
+            font-size: 2.8rem;
+            animation: bounceSticker 3s ease-in-out infinite;
+            z-index: 5;
+            filter: drop-shadow(0 0 10px rgba(255,20,147,0.5));
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .sticker:hover {
+            transform: scale(1.2);
+        }
+
+        .sticker-1 { top: 25%; left: 15%; animation-delay: 0.3s; }
+        .sticker-2 { top: 30%; right: 20%; animation-delay: 0.6s; }
+        .sticker-3 { bottom: 20%; left: 30%; animation-delay: 0.9s; }
+        .sticker-4 { top: 10%; left: 40%; animation-delay: 1.2s; }
+        .sticker-5 { bottom: 30%; right: 10%; animation-delay: 1.8s; }
+
+        @keyframes bounceSticker {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+
+        /* Heart decorations */
+        .deco-heart {
+            position: absolute;
+            color: #ff1493;
+            font-size: 1.3rem;
+            animation: heartBeat 2s ease-in-out infinite;
+            z-index: 4;
+        }
+
+        .dh-1 { top: 5%; left: 45%; animation-delay: 0s; }
+        .dh-2 { top: 20%; right: 5%; animation-delay: 0.5s; }
+        .dh-3 { bottom: 30%; left: 5%; animation-delay: 1s; }
+        .dh-4 { top: 55%; right: 3%; animation-delay: 1.2s; }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        /* Sparkle effect */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+            animation: sparkleAnim 2s ease-in-out infinite;
+            z-index: 3;
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Photo Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            box-shadow: 0 0 40px rgba(255, 20, 147, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content img {
+            display: block;
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: cover;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            z-index: 10;
+        }
+
+        .modal-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #fff;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .modal-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Love Quotes Section */
+        .quotes-section {
+            margin: 15px 20px;
+            padding: 10px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .quote-card {
+            background: rgba(255, 20, 147, 0.08);
+            border: 1px solid rgba(255, 20, 147, 0.15);
+            border-radius: 16px;
+            padding: 22px 20px;
+            margin-bottom: 12px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .quote-card:hover {
+            border-color: rgba(255, 20, 147, 0.25);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.1);
+        }
+
+        .quote-card:nth-child(2) { animation-delay: 0.15s; }
+        .quote-card:nth-child(3) { animation-delay: 0.3s; }
+        .quote-card:nth-child(4) { animation-delay: 0.45s; }
+        .quote-card:nth-child(5) { animation-delay: 0.6s; }
+        .quote-card:nth-child(6) { animation-delay: 0.75s; }
+
+        .quote-icon {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            opacity: 0.6;
+        }
+
+        .poem-author {
+            color: #ff69b4;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            opacity: 0.7;
+        }
+
+        .quote-text {
+            color: #f0d5e0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            font-style: italic;
+            text-shadow: 0 0 6px rgba(255, 20, 147, 0.15);
+            margin-bottom: 10px;
+        }
+
+        .quote-divider {
+            color: rgba(255, 20, 147, 0.3);
+            font-size: 0.8rem;
+            margin: 8px 0;
+            letter-spacing: 6px;
+        }
+
+        .quote-translation {
+            color: #c080a0;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            opacity: 0.75;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Share button */
+        .share-section {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .share-btn {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 25px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255,20,147,0.4);
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255,20,147,0.6);
+        }
+
+        .share-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Bottom hearts decoration */
+        .bottom-hearts {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 30px;
+            padding: 0 20px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .bottom-heart {
+            color: rgba(255,20,147,0.2);
+            font-size: 1rem;
+            animation: sway 4s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(8px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.6rem; }
+            .text-bubble { font-size: 0.95rem !important; }
+            .sticker { font-size: 2.2rem; }
+            .quote-text { font-size: 1.05rem; }
+            .quote-translation { font-size: 0.9rem; }
+            .lang-btn { padding: 6px 12px; font-size: 0.8rem; }
+            .poem-author { font-size: 0.7rem; }
+            .modal-caption { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Photo Modal -->
+    <div class="modal-overlay" id="photoModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImage" src="" alt="Love memory">
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+        <div class="modal-hint">Tap anywhere to close</div>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLanguage('es')" id="btn-es">🇪🇸 Español</button>
+        <button class="lang-btn" onclick="setLanguage('en')" id="btn-en">🇬🇧 English</button>
+    </div>
+
+    <!-- Background hearts -->
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <!-- Glowing orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Herbert Dev</h1>
+    </div>
+
+    <!-- Main love card -->
+    <div class="main-card">
+        <div class="stickers-container">
+            <!-- Glowing sun -->
+            <div class="glow-sun"></div>
+
+            <!-- Text bubbles -->
+            <div class="text-bubble bubble-1" data-es="I Love You" data-en="I Love You">I Love You</div>
+            <div class="text-bubble bubble-2" data-es="Amor de mi<br>Vida" data-en="Love of my<br>Life">Amor de mi<br>Vida</div>
+            <div class="text-bubble bubble-3" data-es="Te Amo<br>Mi Cielo" data-en="I Love You<br>My Sky">Te Amo<br>Mi Cielo</div>
+            <div class="text-bubble bubble-4" data-es="Love You<br>Forever" data-en="Love You<br>Forever">Love You<br>Forever</div>
+            <div class="text-bubble bubble-5" data-es="Eres mi<br>todo" data-en="You are my<br>everything">Eres mi<br>todo</div>
+            <div class="text-bubble bubble-6" data-es="Mi Corazon<br>es tuyo" data-en="My Heart<br>is yours">Mi Corazon<br>es tuyo</div>
+
+            <!-- Character stickers - clickable with YOUR photos -->
+            <div class="sticker sticker-1" onclick="openModal('https://lh3.googleusercontent.com/pw/AP1GczMtHb6OgPMXMa05yoG6T0FI1_6EfWF5dnGq50dCKuCBOpl99cLaJGl8CBa1T4hWbN_Jw02ZyC2fQcH0xQyAr6Lrgc56vCxq-GjLx6jU8NRQxHSt32ZItLFu8o4kIkSupmqKso5QaExihglRNvQmh5bw=w1079-h1919-s-no-gm?authuser=0', 'My beautiful angel 🌹')">🌹</div>
+            <div class="sticker sticker-2" onclick="openModal('https://lh3.googleusercontent.com/pw/AP1GczNxzb8A3LQE_RpOXtCytuhYPPgooP4K2pENAbWJekamcYQ3crIYPGu7ojh2RA1V77iTrr6owieIkkl9M3Z1ePAHStACtRlAH0mymTOf8VDan9VS-_oeL5_TbxmPpdcRgD9wE-bFRQ5RDVJVIaYZ6XCi=w1079-h1919-s-no-gm?authuser=0', 'The moment I knew 💫')">💕</div>
+            <div class="sticker sticker-3" onclick="openModal('https://lh3.googleusercontent.com/pw/AP1GczOmZ-eDgfEgbBT00wjo6uQFXYOVFv7Cs2OFCPkC_QsBBN-sfhX9PKAMtDc1N1x4AMlVX8DaPyexKrHPRs9JCmn4glHQuHaaoc8cXcl4k-XtLQQde3YChpKXlwD_zzMEGsBWW87B3uFeCulRYje7CevV=w1079-h1919-s-no-gm?authuser=0', 'You are my everything 💖')">🦋</div>
+            <div class="sticker sticker-4" onclick="openModal('https://lh3.googleusercontent.com/pw/AP1GczNSxUpxNoIdkiTFf5L_w0IAJLAPdPHePHc2OoFihxd88Qc8X3cSlm3LW8JsE36sBu6HfFfC1594QPcq9uZXqmm_Kzo4D_nHbxTyo-2KEbg_R1H6fbylzX5PnzE4SPV-HidkS62Q1vs50I53Gc30jVvV=w1079-h1919-s-no-gm?authuser=0', 'Forever and always 🌙')">🌙</div>
+            <div class="sticker sticker-5" onclick="openModal('https://lh3.googleusercontent.com/pw/AP1GczODAyHW-m7wxCUU_x_8-_JwWwrgyroJ2uXk8WEEHnj7DBg5qmoau6uU0mQvBXT7sXZCSOeElowVp7QWjGPwayynJ6IiZq6Gg4aeW75MsNnZkzhHkVULPephrq771tunqXLDEZKL17dHUKtz5FctoSkI=w1079-h1919-s-no-gm?authuser=0', 'My heart beats for you ❤️')">✨</div>
+
+            <!-- Decorative hearts -->
+            <div class="deco-heart dh-1">💖</div>
+            <div class="deco-heart dh-2">💗</div>
+            <div class="deco-heart dh-3">💝</div>
+            <div class="deco-heart dh-4">💘</div>
+
+            <!-- Sparkles -->
+            <div class="sparkle" style="top:20%;left:30%;"></div>
+            <div class="sparkle" style="top:60%;left:70%;animation-delay:0.5s;"></div>
+            <div class="sparkle" style="top:40%;left:50%;animation-delay:1s;"></div>
+            <div class="sparkle" style="top:70%;left:20%;animation-delay:1.5s;"></div>
+            <div class="s
